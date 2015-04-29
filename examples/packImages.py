@@ -15,7 +15,7 @@ def listFiles(path):
 			arr.extend(listFiles(path + f + '/'))
 	return arr
 
-def packImages(files, dest):
+def packImages(files, dest, path):
 
 	output = None
 	data = []
@@ -29,7 +29,7 @@ def packImages(files, dest):
 		else: output = output + f
 		if fn[1][-3:] == 'jpg': mimetype += 'jpeg'
 		else: mimetype += fn[1][-3:]
-		data.append([fn[1], p, p + l, mimetype])
+		data.append([fn[0][len(path):], p, p + l, mimetype])
 		p += l
 		c += 1
 
@@ -55,7 +55,7 @@ def main():
 	if len(path) > 0 and path[-1] != '/': path = path + '/'
 	if len(dest) > 0 and dest[-1] != '/': dest = dest + '/'
 	 
-	packImages(listFiles(path), dest)
+	packImages(listFiles(path), dest, path)
 
 
 if __name__ == "__main__":
